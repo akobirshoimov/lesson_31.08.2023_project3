@@ -1,8 +1,33 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import JsonResponse
-from .models import Students,Teachers
+from .models import StudentsModel,TeachersModel
+from rest_framework import generics
+from .serializer import StudentsSerializer,TeachersSerializer
+from rest_framework.permissions import IsAuthenticated  
+
 
 # Create your views here.
+class AllCreateView(generics.ListAPIView):
+    queryset= StudentsModel.objects.all()
+    serializer_class = StudentsSerializer
+    permission_classes = (IsAuthenticated,)
+    
+    def get_queryset(self):
+        print(self.request.user)
+        return StudentsModel.objects.all()
+
+class DelUpdateDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset= StudentsModel.objects.all()
+    serializer_class = StudentsSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get_queryset(self):
+        print(self.request.user)
+        return TeachersModel.objects.all()
+
+
+
+
 
 # def detail(request,detail_id):
 #     each = Teachers.objects.get(id=detail_id)

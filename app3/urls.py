@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import
+from .views import AllCreateView,DelUpdateDetailView
 
 urlpatterns = [
-    path('all/',),
-    path('detail/<int:detail_id>',)
+    path('all/',AllCreateView.as_view()),
+    path('detail/<int:detail_id>',DelUpdateDetailView.as_view())
 ]
